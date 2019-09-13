@@ -67,13 +67,16 @@ server.on('connection', socket => {
             socket.color = data.toString().trim()
             socket.colorFunc = colors[socket.color]
             socket.write('\u001B[2J\u001B[0;0f')
-            socket.write(`Thanks for joining :) There are ${Object.keys(sockets).length} sauer-utleys in this channel\n`)
+            const numSauerUtleys = Object.keys(sockets).length
+            socket.write(`
+                Thanks for joining :) There ${numSauerUtleys > 1 ? 'are' : 'is'} ${numSauerUtleys} sauer-utley${numSauerUtleys > 1 ? 's' : ''} in this channel\n
+            `)
             return
         }
 
         Object.values(sockets).forEach(globalSocket => {
             if(socket === globalSocket) return
-            globalSocket.write(`\n${socket.colorFunc(socket.name)}: `);
+            globalSocket.write(`\n\t\t\t${socket.colorFunc(socket.name)}: `);
             globalSocket.write(`${data}\n`);
         })
     })
@@ -84,7 +87,7 @@ server.on('connection', socket => {
         Object.values(sockets).forEach(globalSocket => {
             if (socket === globalSocket) return
             if (!socket.name) return
-            globalSocket.write(`${socket.name} has left the channel\n`);
+            globalSocket.write(`\t\t\t${socket.name} has left the channel\n`);
         })
 
         console.log('Client Disconnected')
