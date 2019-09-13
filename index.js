@@ -1,5 +1,7 @@
 const colors = require('colors/safe')
 
+const port = process.env.PORT || 8000
+
 process.stdout.write('\u001B[2J\u001B[0;0f')
 
 const server = require('net').createServer()
@@ -87,4 +89,4 @@ server.on('connection', socket => {
     })
 })
 
-server.listen(8000, () => console.log('server bound'))
+server.listen(port, () => console.log('server bound'))
