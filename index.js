@@ -34,6 +34,7 @@ server.on('connection', socket => {
 
     socket.on('data', data => {
         if (!sockets[socket.id]) {
+            if (data.toString().includes('HTTP')) return
             socket.name = data.toString().trim()
             sockets[socket.id] = socket
             socket.write(`Welcome ${socket.name} :)\n`)
@@ -82,6 +83,7 @@ server.on('connection', socket => {
         
         Object.values(sockets).forEach(globalSocket => {
             if (socket === globalSocket) return
+            if (!socket.name) return
             globalSocket.write(`${socket.name} has left the channel\n`);
         })
 
