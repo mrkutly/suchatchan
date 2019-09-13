@@ -1,6 +1,6 @@
 const colors = require('colors/safe')
 
-const port = process.env.PORT || 8000
+const port = 8000
 
 process.stdout.write('\u001B[2J\u001B[0;0f')
 
