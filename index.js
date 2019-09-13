@@ -76,7 +76,7 @@ server.on('connection', socket => {
 
         Object.values(sockets).forEach(globalSocket => {
             if(socket === globalSocket) return
-            globalSocket.write(`\n\t\t\t${socket.colorFunc(socket.name)}: `);
+            globalSocket.write(`\n${socket.colorFunc(socket.name)}: `);
             globalSocket.write(`${data}\n`);
         })
     })
@@ -87,7 +87,7 @@ server.on('connection', socket => {
         Object.values(sockets).forEach(globalSocket => {
             if (socket === globalSocket) return
             if (!socket.name) return
-            globalSocket.write(`\t\t\t${socket.name} has left the channel\n`);
+            globalSocket.write(`${socket.name} has left the channel\n`);
         })
 
         console.log('Client Disconnected')
